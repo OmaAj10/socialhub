@@ -5,6 +5,12 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social_MVC", "Social_MVC\Social_MVC.csproj", "{894E0B45-1C3A-44B0-8005-8BA08E16191E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social_Models", "Social_Models\Social_Models.csproj", "{623F2702-EB52-4AE8-AEF7-670CFA30D781}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social_DataAccess", "Social_DataAccess\Social_DataAccess.csproj", "{A12F3324-E4A9-4A49-B71F-807E5B510299}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social-Utility", "Social-Utility\Social-Utility.csproj", "{7ED72B05-CC65-4D69-9076-09CD38A63F37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +24,17 @@ Global
 		{894E0B45-1C3A-44B0-8005-8BA08E16191E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{894E0B45-1C3A-44B0-8005-8BA08E16191E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{894E0B45-1C3A-44B0-8005-8BA08E16191E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{623F2702-EB52-4AE8-AEF7-670CFA30D781}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{623F2702-EB52-4AE8-AEF7-670CFA30D781}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{623F2702-EB52-4AE8-AEF7-670CFA30D781}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{623F2702-EB52-4AE8-AEF7-670CFA30D781}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A12F3324-E4A9-4A49-B71F-807E5B510299}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A12F3324-E4A9-4A49-B71F-807E5B510299}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A12F3324-E4A9-4A49-B71F-807E5B510299}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A12F3324-E4A9-4A49-B71F-807E5B510299}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ED72B05-CC65-4D69-9076-09CD38A63F37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ED72B05-CC65-4D69-9076-09CD38A63F37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ED72B05-CC65-4D69-9076-09CD38A63F37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ED72B05-CC65-4D69-9076-09CD38A63F37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
