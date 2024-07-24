@@ -1,6 +1,6 @@
-﻿namespace Social_Utility;
+﻿namespace Social_Models;
 
-public class Activity
+public class Activity : BaseEntity
 {
     public string Title { get; set; }
     public string CreatedBy { get; set; }
