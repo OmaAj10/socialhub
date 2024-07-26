@@ -59,6 +59,41 @@ namespace Social_DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Activities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "B-Vallen",
+                            BirthDate = new DateTime(1991, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            City = "Bollebygd",
+                            CreatedBy = "Omar",
+                            Date = new DateTime(2024, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Omar@example.com",
+                            Title = "Spela Fotboll"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Hulta",
+                            BirthDate = new DateTime(1992, 7, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            City = "Bollebygd",
+                            CreatedBy = "Fighter",
+                            Date = new DateTime(2024, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Fighter@example.com",
+                            Title = "Spela Golf"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "Bollebygd skolan",
+                            BirthDate = new DateTime(1993, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            City = "Bollebygd",
+                            CreatedBy = "Bob",
+                            Date = new DateTime(2024, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Bob@example.com",
+                            Title = "Basket Match"
+                        });
                 });
 #pragma warning restore 612, 618
         }

@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Social_DataAccess.Migrations
 {
     /// <inheritdoc />
@@ -28,6 +30,16 @@ namespace Social_DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Activities", x => x.Id);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Activities",
+                columns: new[] { "Id", "Address", "BirthDate", "City", "CreatedBy", "Date", "Email", "Title" },
+                values: new object[,]
+                {
+                    { 1, "B-Vallen", new DateTime(1991, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bollebygd", "Omar", new DateTime(2024, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), "Omar@example.com", "Spela Fotboll" },
+                    { 2, "Hulta", new DateTime(1992, 7, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bollebygd", "Fighter", new DateTime(2024, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), "Fighter@example.com", "Spela Golf" },
+                    { 3, "Bollebygd skolan", new DateTime(1993, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bollebygd", "Bob", new DateTime(2024, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bob@example.com", "Basket Match" }
                 });
         }
 

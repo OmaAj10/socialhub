@@ -1,0 +1,118 @@
+@model IEnumerable<Social_Models.Activity>
+
+@functions
+{
+    public int CalcAge(DateTime birthDate)
+    {
+        var today = DateTime.Today;
+        var age = today.Year - birthDate.Year;
+
+        if (birthDate > today.AddYears(-age))
+        {
+            age--;
+        }
+
+        return age;
+    }
+}
+
+<div class="container py-4">
+    <div class="row g-3">
+        <div class="col-12">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#createHubModal">
+                    <i class="bi bi-plus-circle" style="margin-right: 7px"></i>Skapa event
+                </button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-primary btn-lg" onclick="alert('Du måste logga in')">
+                    <i class="bi bi-plus-circle" style="margin-right: 7px"></i>Skapa event
+                </button>
+            }
+            
+            <form method="post" asp-controller="Activity" asp-action="CreateEvent">
+                <div class="modal fade" id="createHubModal" tabindex="-1" aria-labelledby="createHubModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 style="text-align: center">Event formulär</h2>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="Title" class="form-label">Titel</label>
+                                    <input type="text" class="form-control" id="hubName" name="Title" placeholder="Ange titel" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="CreateBy" class="form-label">Namn</label>
+                                    <input type="text" class="form-control" id="hubCreater" name="CreatedBy" placeholder="Ange namn" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="BirthDate" class="form-label">Födelsedatum</label>
+                                    <input type="date" class="form-control" id="birthDate" name="BirthDate" placeholder="Ange födelsedatum" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Email" class="form-label">E-post</label>
+                                    <input type="email" class="form-control" id="Email" name="Email" placeholder="Ange E-post" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="City" class="form-label">Stad/Ort</label>
+                                    <input type="text" class="form-control" id="hubPlace" name="City" placeholder="Ange Stad/Ort" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Address" class="form-label">Plats</label>
+                                    <input type="text" class="form-control" id="hubPlace" name="Address" placeholder="Ange plats" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Date" class="form-label">Tid</label>
+                                    <input type="datetime-local" class="form-control" name="Date" id="hubTime" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Stäng</button>
+                                <button type="submit" class="btn btn-primary">Skapa</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="col-12">
+                <div class="card shadow-sm">
+                    <a asp-controller="Participant" asp-action="Index" asp-route-activityId="@item.Id" class="list-group-item list-group-item-action d-flex flex-row justify-content-between align-items-center gap-3 py-3" aria-current="true">
+                        <div class="d-flex align-items-center">
+                            <img style="margin-left: 10px" src="Images/S.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0 me-3">
+                            <div>
+                                <h4>@item.Title</h4>
+                                <div class="d-flex">
+                                    <h5 style="margin-right: 5px">Skapare:</h5>
+                                    <p>@item.CreatedBy @CalcAge(item.BirthDate) år</p>
+                                </div>
+                                <div class="d-flex">
+                                    <h5 style="margin-right: 5px">E-post:</h5>
+                                    <p>@item.Email</p>
+                                </div>
+                                <div class="d-flex">
+                                    <h5 style="margin-right: 5px">Stad/Ort:</h5>
+                                    <p>@item.City</p>
+                                </div>
+                                <div class="d-flex">
+                                    <h5 style="margin-right: 5px">Plats:</h5>
+                                    <p>@item.Address</p>
+                                </div>
+                                <div class="d-flex">
+                                    <h5 style="margin-right: 5px">Tid:</h5>
+                                    <p>@item.Date.ToString()</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
