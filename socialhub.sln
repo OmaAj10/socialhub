@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social_Models", "Social_Mod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social_DataAccess", "Social_DataAccess\Social_DataAccess.csproj", "{A12F3324-E4A9-4A49-B71F-807E5B510299}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social-Utility", "Social-Utility\Social-Utility.csproj", "{7ED72B05-CC65-4D69-9076-09CD38A63F37}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social_Utility", "Social_Utility\Social_Utility.csproj", "{3049F043-CD24-4AE5-A470-E6B143D13936}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,9 +32,9 @@ Global
 		{A12F3324-E4A9-4A49-B71F-807E5B510299}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A12F3324-E4A9-4A49-B71F-807E5B510299}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A12F3324-E4A9-4A49-B71F-807E5B510299}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7ED72B05-CC65-4D69-9076-09CD38A63F37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7ED72B05-CC65-4D69-9076-09CD38A63F37}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7ED72B05-CC65-4D69-9076-09CD38A63F37}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7ED72B05-CC65-4D69-9076-09CD38A63F37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3049F043-CD24-4AE5-A470-E6B143D13936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3049F043-CD24-4AE5-A470-E6B143D13936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3049F043-CD24-4AE5-A470-E6B143D13936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3049F043-CD24-4AE5-A470-E6B143D13936}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
