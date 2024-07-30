@@ -20,4 +20,8 @@
       <ProjectReference Include="..\Social_Models\Social_Models.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Migrations\ApplicationDbContextModelSnapshot.cs" />
+    </ItemGroup>
+
 </Project>

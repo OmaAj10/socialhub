@@ -106,7 +106,15 @@ namespace Social_MVC.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
             public string? Role { get; set; }
             [ValidateNever]
-            public IEnumerable<SelectListItem> RoleList { get; set; }
+            public IEnumerable<SelectListItem> RoleList { get; set; } public string Name { get; set; }
+            [Required]
+            public DateTime BirthDate { get; set; }
+            [Required]
+            public string Address { get; set; }
+            [Required]
+            public string City { get; set; }
+            [Required]
+            public string PostalCode { get; set; }
         }
 
 
@@ -142,6 +150,11 @@ namespace Social_MVC.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                user.Name = Input.Name;
+                user.Address = Input.Address;
+                user.City = Input.City;
+                user.PostalCode = Input.PostalCode;
+                    
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)

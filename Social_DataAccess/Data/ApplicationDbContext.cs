@@ -11,6 +11,7 @@ public class ApplicationDbContext : IdentityDbContext
     }
     
     public DbSet<Activity> Activities { get; set; }
+    public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
