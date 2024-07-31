@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Social_DataAccess.Repository.IRepository;
@@ -152,6 +153,8 @@ public class ActivityController : Controller
         {
             return NotFound();
         }
+        
+        ViewData["UserEmail"] = User.FindFirstValue(ClaimTypes.Email);
 
         return View(activityFromDb);
     }
@@ -169,6 +172,15 @@ public class ActivityController : Controller
         if (activityFromDb == null)
         {
             return NotFound();
+        }
+
+        var existingUser = await _unitOfWork.ApplicationUser.Get(u =>
+            u.Name == applicationUserName && u.Email == applicationUserEmail && u.ActivityId == id);
+
+        if (existingUser != null)
+        {
+            TempData["danger"] = "Du har redan gått med i detta event!";
+            return RedirectToAction("Index");
         }
 
         var applicationUser = new ApplicationUser

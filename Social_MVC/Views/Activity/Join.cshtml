@@ -12,19 +12,19 @@
                         <input type="hidden" name="id" value="@Model.Id"/> 
                         <div class="mb-3">
                             <label for="Title" class="form-label">Titel</label> 
-                            <input disabled type="text" class="form-control" name="Name" value="@Model.Title" required> 
+                            <input disabled type="text" class="form-control" name="Name" value="@Model.Title"> 
                         </div>
                         <div class="mb-3">
                             <label for="userName" class="form-label">Namn</label>
-                            <input type="text" class="form-control" name="participantName" placeholder="Ange namn" required>
+                            <input type="text" class="form-control" placeholder="Ange namn" name="applicationUserName">
                         </div>
                         <div class="mb-3">
                             <label for="userBirthDate" class="form-label">Födelsedatum</label>
-                            <input type="date" class="form-control" name="participantBirthDate" placeholder="Ange Födelsedatum" required>
+                            <input type="date" class="form-control"  placeholder="Ange Födelsedatum" name="applicationUserDate">
                         </div>
                         <div class="mb-3">
                             <label for="userEmail" class="form-label">E-Post</label>
-                            <input type="email" class="form-control" name="participantEmail" placeholder="Ange E-post" required>
+                            <input type="email" class="form-control" placeholder="Ange E-post" name="applicationUserEmail" value="@ViewData["UserEmail"]" disabled>
                         </div>
                         <button type="submit" class="btn btn-success">Gå med</button>
                         <a href="#" class="btn btn-secondary" onclick="history.go(-1); return false;">Avbryt</a>
