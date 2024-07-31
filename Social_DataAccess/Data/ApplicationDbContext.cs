@@ -16,6 +16,11 @@ public class ApplicationDbContext : IdentityDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        
+        modelBuilder.Entity<ApplicationUser>()
+            .HasOne(a => a.Activity)
+            .WithMany(b => b.ApplicationUsers)
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Activity>().HasData(
             new Activity
@@ -52,5 +57,39 @@ public class ApplicationDbContext : IdentityDbContext
                 Date = new DateTime(2024, 7, 24)
             }
         );
+        
+        modelBuilder.Entity<ApplicationUser>().HasData(
+            new ApplicationUser()
+            {
+                Name = "Omar",
+                BirthDate = DateTime.Parse("1991-10-09"),
+                Email = "Omar@example.com",
+                Address = "Adress1",
+                City = "City1",
+                PostalCode = "1",
+                ActivityId = 1
+            },
+            new ApplicationUser() 
+            {
+                Name = "Bob",
+                BirthDate = DateTime.Parse("2015-07-14"),
+                Email = "Bob@example.com",
+                Address = "Adress2",
+                City = "City2",
+                PostalCode = "2",
+                ActivityId = 2
+            },
+            new ApplicationUser()
+            {
+                Name = "Fighter",
+                BirthDate = DateTime.Parse("2022-04-28"),
+                Email = "Fighter@example.com",
+                Address = "Adress3",
+                City = "City3",
+                PostalCode = "3",
+                ActivityId = 3
+            }
+        );
+
     }
 }

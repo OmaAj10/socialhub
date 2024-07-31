@@ -311,27 +311,79 @@ namespace Social_DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("BirthDate")
+                    b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasIndex("ActivityId");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "70b5dc0c-cfb7-478d-bc5c-772884e4cf9b",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b57ea695-d8d2-4f42-8a1e-cd340343484d",
+                            Email = "Omar@example.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "35f136aa-8667-4cf5-8ae3-94b20e518d87",
+                            TwoFactorEnabled = false,
+                            ActivityId = 1,
+                            Address = "Adress1",
+                            BirthDate = new DateTime(1991, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            City = "City1",
+                            Name = "Omar",
+                            PostalCode = "1"
+                        },
+                        new
+                        {
+                            Id = "e08d62e5-e223-475d-9b3a-f8848d4cb090",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "255d649b-95b1-4c8d-ad14-f3f6df551794",
+                            Email = "Bob@example.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "87e124c9-8de1-4c76-a404-558c9050d651",
+                            TwoFactorEnabled = false,
+                            ActivityId = 2,
+                            Address = "Adress2",
+                            BirthDate = new DateTime(2015, 7, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            City = "City2",
+                            Name = "Bob",
+                            PostalCode = "2"
+                        },
+                        new
+                        {
+                            Id = "63b6a0c3-a70c-43de-97d0-008dd9f8e32e",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "af0ac319-8f4a-40a9-9c01-8c347c65c705",
+                            Email = "Fighter@example.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "2a9a4303-5379-47e0-adc3-aaa2cb26f526",
+                            TwoFactorEnabled = false,
+                            ActivityId = 3,
+                            Address = "Adress3",
+                            BirthDate = new DateTime(2022, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            City = "City3",
+                            Name = "Fighter",
+                            PostalCode = "3"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -388,10 +440,16 @@ namespace Social_DataAccess.Migrations
             modelBuilder.Entity("Social_Models.ApplicationUser", b =>
                 {
                     b.HasOne("Social_Models.Activity", "Activity")
-                        .WithMany()
-                        .HasForeignKey("ActivityId");
+                        .WithMany("ApplicationUsers")
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Activity");
+                });
+
+            modelBuilder.Entity("Social_Models.Activity", b =>
+                {
+                    b.Navigation("ApplicationUsers");
                 });
 #pragma warning restore 612, 618
         }

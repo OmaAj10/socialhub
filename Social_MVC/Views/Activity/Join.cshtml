@@ -1,0 +1,36 @@
+@model Social_Models.Activity
+
+<div class="container py-4">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h2 style="text-align: center">Gå med Eventet</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-controller="Activity" asp-action="Join">
+                        <input type="hidden" name="id" value="@Model.Id"/> 
+                        <div class="mb-3">
+                            <label for="Title" class="form-label">Titel</label> 
+                            <input disabled type="text" class="form-control" name="Name" value="@Model.Title" required> 
+                        </div>
+                        <div class="mb-3">
+                            <label for="userName" class="form-label">Namn</label>
+                            <input type="text" class="form-control" name="participantName" placeholder="Ange namn" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userBirthDate" class="form-label">Födelsedatum</label>
+                            <input type="date" class="form-control" name="participantBirthDate" placeholder="Ange Födelsedatum" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userEmail" class="form-label">E-Post</label>
+                            <input type="email" class="form-control" name="participantEmail" placeholder="Ange E-post" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Gå med</button>
+                        <a href="#" class="btn btn-secondary" onclick="history.go(-1); return false;">Avbryt</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

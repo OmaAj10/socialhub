@@ -1,4 +1,6 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model IEnumerable<Social_Models.Activity>
+
 
 @functions
 {
@@ -108,7 +110,50 @@
                                     <h5 style="margin-right: 5px">Tid:</h5>
                                     <p>@item.Date.ToString()</p>
                                 </div>
+                                @if (item.ApplicationUsers != null)
+                                {
+                                    <div class="d-flex">
+                                        <h5 style="margin-right: 5px">Deltagare:</h5>
+                                        <p>@item.ApplicationUsers.Count()</p>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <h5>Deltagare: 0</h5>
+                                }
                             </div>
+                        </div>
+                        <div class="d-flex">
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <form method="get" asp-controller="Activity" asp-action="Join">
+                                    <input type="hidden" name="id" value="@item.Id"/>
+                                    <button type="submit" class="btn btn-success" style="margin-right: 10px">Gå med</button>
+                                </form>
+                                if (User.IsInRole("Admin"))
+                                {
+                                <form method="post" asp-controller="Activity" asp-action="Delete" style="display:inline;">
+                                    <input type="hidden" name="id" value="@item.Id"/>
+                                    <button type="submit" class="btn btn-danger" style="margin-right: 10px">Ta bort</button>
+                                </form>
+                                }
+                                <form method="get" asp-controller="Activity" asp-action="Edit">
+                                    <input type="hidden" name="id" value="@item.Id"/>
+                                    <button type="submit" class="btn btn-info" style="margin-right: 10px">Redigera</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form method="get" asp-controller="Activity" asp-action="Join">
+                                    <input type="hidden" name="id" value="@item.Id"/>
+                                    <button type="submit" class="btn btn-success" style="margin-right: 10px" onclick="event.preventDefault(); alert('Du måste logga in')">Gå med</button>
+                                </form>
+                                <form method="get" asp-controller="Activity" asp-action="Edit">
+                                    <input type="hidden" name="id" value="@item.Id"/>
+                                    <button type="submit" class="btn btn-info" style="margin-right: 10px" onclick="event.preventDefault(); alert('Du måste logga in')">Redigera</button>
+                                </form>
+                            }
                         </div>
                     </a>
                 </div>

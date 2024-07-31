@@ -36,7 +36,7 @@ public class Repository<T> : IRepository<T> where T : class
         return await query.ToListAsync();
     }
 
-    public async Task<T> Get(Expression<Func<T, bool>> filter)
+    public async Task<T> Get(Expression<Func<T, bool>> filter, string? includeProperties = null)
     {
         IQueryable<T> query = dbSet;
         query = query.Where(filter);

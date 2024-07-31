@@ -80,7 +80,8 @@ namespace Social_DataAccess.Migrations
                         name: "FK_AspNetUsers_Activities_ActivityId",
                         column: x => x.ActivityId,
                         principalTable: "Activities",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -197,6 +198,16 @@ namespace Social_DataAccess.Migrations
                     { 1, "B-Vallen", new DateTime(1991, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bollebygd", "Omar", new DateTime(2024, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), "Omar@example.com", "Spela Fotboll" },
                     { 2, "Hulta", new DateTime(1992, 7, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bollebygd", "Fighter", new DateTime(2024, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), "Fighter@example.com", "Spela Golf" },
                     { 3, "Bollebygd skolan", new DateTime(1993, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bollebygd", "Bob", new DateTime(2024, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bob@example.com", "Basket Match" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ActivityId", "Address", "BirthDate", "City", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PostalCode", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "63b6a0c3-a70c-43de-97d0-008dd9f8e32e", 0, 3, "Adress3", new DateTime(2022, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "City3", "af0ac319-8f4a-40a9-9c01-8c347c65c705", "ApplicationUser", "Fighter@example.com", false, false, null, "Fighter", null, null, null, null, false, "3", "2a9a4303-5379-47e0-adc3-aaa2cb26f526", false, null },
+                    { "70b5dc0c-cfb7-478d-bc5c-772884e4cf9b", 0, 1, "Adress1", new DateTime(1991, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "City1", "b57ea695-d8d2-4f42-8a1e-cd340343484d", "ApplicationUser", "Omar@example.com", false, false, null, "Omar", null, null, null, null, false, "1", "35f136aa-8667-4cf5-8ae3-94b20e518d87", false, null },
+                    { "e08d62e5-e223-475d-9b3a-f8848d4cb090", 0, 2, "Adress2", new DateTime(2015, 7, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "City2", "255d649b-95b1-4c8d-ad14-f3f6df551794", "ApplicationUser", "Bob@example.com", false, false, null, "Bob", null, null, null, null, false, "2", "87e124c9-8de1-4c76-a404-558c9050d651", false, null }
                 });
 
             migrationBuilder.CreateIndex(

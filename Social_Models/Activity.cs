@@ -9,4 +9,5 @@ public class Activity : BaseEntity
     public string City { get; set; }
     public string Address { get; set; }
     public DateTime Date { get; set; }
+    public List<ApplicationUser>? ApplicationUsers { get; set; }
 }
