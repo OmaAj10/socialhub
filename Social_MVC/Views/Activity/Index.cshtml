@@ -110,11 +110,23 @@
                                     <h5 style="margin-right: 5px">Tid:</h5>
                                     <p>@item.Date.ToString()</p>
                                 </div>
-                                @if (item.ApplicationUsers != null)
+                                @if (item.ApplicationUserActivities != null)
                                 {
+                                    @* <div class="d-flex"> *@
+                                    @*     <h5 style="margin-right: 5px">Deltagare:</h5> *@
+                                    @*     <p>@item.ApplicationUsers.Count()</p> *@
+                                    @* </div> *@
+                                    var usersCount = item.ApplicationUserActivities.Count();
+                                    var isCreatorUser = item.ApplicationUserActivities.Any(a => a.ApplicationUser.Email == item.Email);
+
+                                    if (!isCreatorUser)
+                                    {
+                                        usersCount++;
+                                    }
+
                                     <div class="d-flex">
                                         <h5 style="margin-right: 5px">Deltagare:</h5>
-                                        <p>@item.ApplicationUsers.Count()</p>
+                                        <p>@usersCount</p>
                                     </div>
                                 }
                                 else

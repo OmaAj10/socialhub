@@ -1,4 +1,6 @@
-﻿namespace Social_Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Social_Models;
 
 public class Activity : BaseEntity
 {
@@ -9,5 +11,7 @@ public class Activity : BaseEntity
     public string City { get; set; }
     public string Address { get; set; }
     public DateTime Date { get; set; }
-    public List<ApplicationUser>? ApplicationUsers { get; set; }
+    public ICollection<ApplicationUserActivity> ApplicationUserActivities { get; set; } = new List<ApplicationUserActivity>();    
+    [NotMapped]
+    public IEnumerable<ApplicationUser> ApplicationUsers => ApplicationUserActivities.Select(ua => ua.ApplicationUser);
 }

@@ -17,7 +17,7 @@ public class ActivityController : Controller
     }
     public async Task<IActionResult> Index()
     {
-        var getAllActivities = await _unitOfWork.Activity.GetAll(includeProperties: "ApplicationUsers");
+        var getAllActivities = await _unitOfWork.Activity.GetAll(includeProperties: "ApplicationUserActivities.ApplicationUser");
         return View(getAllActivities);
     }
     
@@ -41,12 +41,16 @@ public class ActivityController : Controller
                 Name = activityModel.CreatedBy,
                 BirthDate = activityModel.BirthDate,
                 Email = activityModel.Email,
-                Activity = activityModel,
-                ActivityId = activityModel.Id
             };
 
             await _unitOfWork.ApplicationUser.Create(applicationUser);
             await _unitOfWork.Save();
+
+            var applicationActivity = new ApplicationUserActivity
+            {
+                ApplicationUserId = applicationUser.Id,
+                ActivityId = activityModel.Id
+            };
             TempData["success"] = "Ditt event har skapats";
             return RedirectToAction(nameof(Index));
         }
@@ -124,11 +128,17 @@ public class ActivityController : Controller
             activityFromDb.Address = activity.Address;
             activityFromDb.Date = activity.Date;
 
-            var participantFromDb = await _unitOfWork.ApplicationUser.Get(p => p.ActivityId == activityFromDb.Id);
+            var applicationUserActivityFromDb = await _unitOfWork.ApplicationUserActivity.Get(p => p.ActivityId == activityFromDb.Id);
 
-            if (participantFromDb != null)
+            if (applicationUserActivityFromDb != null)
             {
-                participantFromDb.Name = activity.CreatedBy;
+                var applicationUserFromDB =
+                    await _unitOfWork.ApplicationUser.Get(u => u.Id == applicationUserActivityFromDb.ApplicationUserId);
+
+                if (applicationUserFromDB != null)
+                {
+                    applicationUserFromDB.Name = activityFromDb.CreatedBy;
+                }
             }
 
             await _unitOfWork.Activity.Update(activityFromDb);
@@ -160,13 +170,13 @@ public class ActivityController : Controller
     }
 
     [HttpPost, ActionName("Join")]
-    public async Task<IActionResult> Join(int id, string applicationUserName, DateTime applicationUserDate, string applicationUserEmail)
+    public async Task<IActionResult> Join(int id)
     {
         if (id == 0)
         {
             return NotFound();
         }
-        
+
         Activity? activityFromDb = await _unitOfWork.Activity.Get(a => a.Id == id);
 
         if (activityFromDb == null)
@@ -174,25 +184,32 @@ public class ActivityController : Controller
             return NotFound();
         }
 
-        var existingUser = await _unitOfWork.ApplicationUser.Get(u =>
-            u.Name == applicationUserName && u.Email == applicationUserEmail && u.ActivityId == id);
-
-        if (existingUser != null)
+        var userEmail = User.FindFirstValue(ClaimTypes.Email);
+        
+        var applicationUser = await _unitOfWork.ApplicationUser.Get(u => u.Email == userEmail);
+        
+        if (applicationUser == null)
         {
-            TempData["danger"] = "Du har redan gått med i detta event!";
+            return NotFound();
+        }
+        
+        var existingUserActivity = await _unitOfWork.ApplicationUserActivity.Get(u =>
+            u.ApplicationUserId == applicationUser.Id && u.ActivityId == id);
+
+        if (existingUserActivity != null)
+        {
+            TempData["error"] = "Du har redan gått med i detta event!";
             return RedirectToAction("Index");
         }
 
-        var applicationUser = new ApplicationUser
+
+        var applicationUserActivity = new ApplicationUserActivity
         {
-            Name = applicationUserName,
-            BirthDate = applicationUserDate,
-            Email = applicationUserEmail,
-            Activity = activityFromDb,
+            ApplicationUserId = applicationUser.Id,
             ActivityId = activityFromDb.Id
         };
 
-        await _unitOfWork.ApplicationUser.Create(applicationUser);
+        await _unitOfWork.ApplicationUserActivity.Create(applicationUserActivity);
         await _unitOfWork.Save();
         TempData["success"] = "Du har gått med ett event!";
 
