@@ -18,6 +18,8 @@ public class ActivityController : Controller
     public async Task<IActionResult> Index()
     {
         var getAllActivities = await _unitOfWork.Activity.GetAll(includeProperties: "ApplicationUserActivities.ApplicationUser");
+        var userEmail = User.FindFirstValue(ClaimTypes.Email);
+        ViewData["UserEmail"] = userEmail;
         return View(getAllActivities);
     }
     
@@ -46,11 +48,6 @@ public class ActivityController : Controller
             await _unitOfWork.ApplicationUser.Create(applicationUser);
             await _unitOfWork.Save();
 
-            var applicationActivity = new ApplicationUserActivity
-            {
-                ApplicationUserId = applicationUser.Id,
-                ActivityId = activityModel.Id
-            };
             TempData["success"] = "Ditt event har skapats";
             return RedirectToAction(nameof(Index));
         }
@@ -94,7 +91,7 @@ public class ActivityController : Controller
         {
             return NotFound();
         }
-
+    
         Activity? activityFromDb;
         try
         {
@@ -104,7 +101,21 @@ public class ActivityController : Controller
         {
             return NotFound();
         }
-
+        
+        var userEmail = User.FindFirstValue(ClaimTypes.Email);
+        var isAdmin = User.IsInRole("Admin");
+        var isCreator = activityFromDb.Email == userEmail;
+    
+        if (!isAdmin && !isCreator)
+        {
+            return Forbid();
+        }
+    
+        ViewData["UserEmail"] = userEmail;
+        ViewData["CreatorEmail"] = activityFromDb.Email;
+        ViewData["IsAdmin"] = isAdmin;
+        ViewData["IsCreator"] = isCreator;
+    
         return View(activityFromDb);
     }
     
@@ -114,12 +125,21 @@ public class ActivityController : Controller
         if (ModelState.IsValid)
         {
             var activityFromDb = await _unitOfWork.Activity.Get(a => a.Id == activity.Id);
-
+    
             if (activityFromDb == null)
             {
                 return NotFound();
             }
-
+    
+            var userEmail = User.FindFirstValue(ClaimTypes.Email);
+            var isAdmin = User.IsInRole("Admin");
+            var isCreator = activityFromDb.Email == userEmail;
+            
+            if (!isAdmin && !isCreator)
+            {
+                return Forbid();
+            }
+    
             activityFromDb.Title = activity.Title;
             activityFromDb.CreatedBy = activity.CreatedBy;
             activityFromDb.BirthDate = activity.BirthDate;
@@ -127,29 +147,28 @@ public class ActivityController : Controller
             activityFromDb.City = activity.City;
             activityFromDb.Address = activity.Address;
             activityFromDb.Date = activity.Date;
-
+    
             var applicationUserActivityFromDb = await _unitOfWork.ApplicationUserActivity.Get(p => p.ActivityId == activityFromDb.Id);
-
+    
             if (applicationUserActivityFromDb != null)
             {
                 var applicationUserFromDB =
                     await _unitOfWork.ApplicationUser.Get(u => u.Id == applicationUserActivityFromDb.ApplicationUserId);
-
+    
                 if (applicationUserFromDB != null)
                 {
                     applicationUserFromDB.Name = activityFromDb.CreatedBy;
                 }
             }
-
+    
             await _unitOfWork.Activity.Update(activityFromDb);
             await _unitOfWork.Save();
             TempData["success"] = "Ditt event har updaterats!";
             return RedirectToAction("Index");
         }
-
+    
         return View(activity);
     }
-
     public async Task<IActionResult> Join(int? id)
     {
         if (id == 0)
