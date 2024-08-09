@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Social_DataAccess.Repository.IRepository;
 using Social_Models;
+using Social_Models.ViweModels;
 using Social_Utility;
 
 namespace Social_MVC.Controllers;
@@ -20,10 +21,16 @@ public class ActivityController : Controller
         var getAllActivities = await _unitOfWork.Activity.GetAll(includeProperties: "ApplicationUserActivities.ApplicationUser");
         var userEmail = User.FindFirstValue(ClaimTypes.Email);
         ViewData["UserEmail"] = userEmail;
-        return View(getAllActivities);
+
+        var activityViewModels = getAllActivities.Select(activity => new ActivityModel
+        {
+            Activity = activity,
+            isJoinedActivity = activity.ApplicationUserActivities?.Any(a => a.ApplicationUser.Email == userEmail) ?? false
+        }).ToList();
+   
+        return View(activityViewModels);
     }
     
-      
     [Authorize(Roles = RoleDetails.Role_Company + "," + RoleDetails.Role_Admin + "," + RoleDetails.Role_User)]
     [HttpPost, ActionName("CreateEvent")]
     public async Task<IActionResult> CreateEvent(Activity activityModel)
@@ -204,8 +211,9 @@ public class ActivityController : Controller
         }
 
         var userEmail = User.FindFirstValue(ClaimTypes.Email);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         
-        var applicationUser = await _unitOfWork.ApplicationUser.Get(u => u.Email == userEmail);
+        var applicationUser = await _unitOfWork.ApplicationUser.Get(u => u.Email == userEmail && u.Id == userId);
         
         if (applicationUser == null)
         {
@@ -231,6 +239,55 @@ public class ActivityController : Controller
         await _unitOfWork.ApplicationUserActivity.Create(applicationUserActivity);
         await _unitOfWork.Save();
         TempData["success"] = "Du har gått med ett event!";
+
+        return RedirectToAction("Index");
+    }
+
+    public async Task<bool> IsHasJoinedEvent(int eventId)
+    {
+        var userEmail = User.FindFirstValue(ClaimTypes.Email);
+        var activity = _unitOfWork.Activity.Get(a => a.Id == eventId).Result;
+        var isUserJoined = activity?.ApplicationUserActivities?.Any(a => a.ApplicationUser.Email == userEmail) ?? false;
+
+        return isUserJoined;
+    }
+    
+    [HttpPost, ActionName("LeaveEvent")]
+    public async Task<IActionResult> LeaveEvent(int id)
+    {
+        if (id == 0)
+        {
+            return NotFound();
+        }
+
+        var userEmail = User.FindFirstValue(ClaimTypes.Email);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var applicationUser = await _unitOfWork.ApplicationUser.Get(u => u.Email == userEmail && u.Id == userId);
+
+        if (applicationUser == null)
+        {
+            return NotFound();
+        }
+
+        var userActivity = await _unitOfWork.ApplicationUserActivity.Get(u =>
+            u.ApplicationUserId == applicationUser.Id && u.ActivityId == id);
+        
+        if (userActivity == null)
+        {
+            Console.WriteLine($"No user activity found for ApplicationUserId: {applicationUser.Id} and ActivityId: {id}");
+            return NotFound();
+        }
+
+        var activity = await _unitOfWork.Activity.Get(a => a.Id == id);
+        
+        if (activity == null)
+        {
+            return NotFound();
+        }
+        
+        await _unitOfWork.ApplicationUserActivity.Delete(userActivity);
+        await _unitOfWork.Save();
+        TempData["success"] = "Du har lämnat eventet!";
 
         return RedirectToAction("Index");
     }

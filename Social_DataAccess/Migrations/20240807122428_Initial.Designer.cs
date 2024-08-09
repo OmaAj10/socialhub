@@ -12,7 +12,7 @@ using Social_DataAccess;
 namespace Social_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240801112537_Initial")]
+    [Migration("20240807122428_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -348,14 +348,14 @@ namespace Social_DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e9b9471f-b78b-49b6-86b8-eacf041459d3",
+                            Id = "6ca537b1-ed5f-47b5-9c71-b37f098789c7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3ce7379e-2b5c-48ac-b322-852316a9dd64",
+                            ConcurrencyStamp = "3365fd84-f055-4e2b-903a-222d737c21b4",
                             Email = "Omar@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ebb46893-7f8f-40e4-99ad-1c3f3aa7eae4",
+                            SecurityStamp = "765d7c97-b8b4-42fd-ac19-a33eb927009a",
                             TwoFactorEnabled = false,
                             Address = "Adress1",
                             BirthDate = new DateTime(1991, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -365,14 +365,14 @@ namespace Social_DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "8f3c52aa-6376-4661-9b41-7a98d2c29890",
+                            Id = "c863249f-301e-49cf-8b14-5eab8db21625",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e4ab0923-cfa7-472f-b29e-61b76c0fe3b7",
+                            ConcurrencyStamp = "9e9563db-1044-4d1c-ac4b-41e7e8ad7b95",
                             Email = "Bob@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "24e8b16f-b178-4f5d-b2bc-199f5229a587",
+                            SecurityStamp = "74f3842a-a95f-4fb2-97ab-5fd422e64bc3",
                             TwoFactorEnabled = false,
                             Address = "Adress2",
                             BirthDate = new DateTime(2015, 7, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -382,14 +382,14 @@ namespace Social_DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "7205ad65-848a-4a19-a7d7-870b61c4a447",
+                            Id = "13b07025-8be5-4f6f-bf30-5a08ee73a29b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "abc11510-58ec-4cea-9d79-6fbcd29f9a57",
+                            ConcurrencyStamp = "a9398966-bc5d-4d71-aaaa-f46d9c0834a7",
                             Email = "Fighter@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7edbd3b6-b891-4d5d-b010-43c17b01657e",
+                            SecurityStamp = "ea6a8bb3-ff7a-4ed7-9514-4405d4f84799",
                             TwoFactorEnabled = false,
                             Address = "Adress3",
                             BirthDate = new DateTime(2022, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),

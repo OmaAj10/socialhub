@@ -1,5 +1,5 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@model IEnumerable<Social_Models.Activity>
+@model IEnumerable<Social_Models.ViweModels.ActivityModel>
 
 
 @functions
@@ -33,7 +33,7 @@
                     <i class="bi bi-plus-circle" style="margin-right: 7px"></i>Skapa event
                 </button>
             }
-            
+
             <form method="post" asp-controller="Activity" asp-action="CreateEvent">
                 <div class="modal fade" id="createHubModal" tabindex="-1" aria-labelledby="createHubModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -81,94 +81,110 @@
                 </div>
             </form>
         </div>
+
         @foreach (var item in Model)
         {
-            <div class="col-12">
-                <div class="card shadow-sm">
-                    <a asp-controller="" asp-action="Index" asp-route-activityId="@item.Id" class="list-group-item list-group-item-action d-flex flex-row justify-content-between align-items-center gap-3 py-3" aria-current="true">
-                        <div class="d-flex align-items-center">
-                            <img style="margin-left: 10px" src="Images/S.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0 me-3">
-                            <div>
-                                <h4>@item.Title</h4>
-                                <div class="d-flex">
-                                    <h5 style="margin-right: 5px">Skapare:</h5>
-                                    <p>@item.CreatedBy @CalcAge(item.BirthDate) år</p>
-                                </div>
-                                <div class="d-flex">
-                                    <h5 style="margin-right: 5px">E-post:</h5>
-                                    <p>@item.Email</p>
-                                </div>
-                                <div class="d-flex">
-                                    <h5 style="margin-right: 5px">Stad/Ort:</h5>
-                                    <p>@item.City</p>
-                                </div>
-                                <div class="d-flex">
-                                    <h5 style="margin-right: 5px">Plats:</h5>
-                                    <p>@item.Address</p>
-                                </div>
-                                <div class="d-flex">
-                                    <h5 style="margin-right: 5px">Tid:</h5>
-                                    <p>@item.Date.ToString()</p>
-                                </div>
-                                @if (item.ApplicationUserActivities != null)
-                                {
-                                    @* <div class="d-flex"> *@
-                                    @*     <h5 style="margin-right: 5px">Deltagare:</h5> *@
-                                    @*     <p>@item.ApplicationUsers.Count()</p> *@
-                                    @* </div> *@
-                                    var usersCount = item.ApplicationUserActivities.Count();
-                                    var isCreatorUser = item.ApplicationUserActivities.Any(a => a.ApplicationUser.Email == item.Email);
-
-                                    if (!isCreatorUser)
-                                    {
-                                        usersCount++;
-                                    }
-
-                                    <div class="d-flex">
-                                        <h5 style="margin-right: 5px">Deltagare:</h5>
-                                        <p>@usersCount</p>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <h5>Deltagare: 0</h5>
-                                }
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <a asp-controller="" asp-action="Index" asp-route-activityId="@item.Id" class="list-group-item list-group-item-action d-flex flex-row justify-content-between align-items-center gap-3 py-3" aria-current="true">
+                    <div class="d-flex align-items-center">
+                        <img style="margin-left: 10px" src="Images/S.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0 me-3">
+                        <div>
+                            <h4>@item.Activity.Title</h4>
+                            <div class="d-flex">
+                                <h5 style="margin-right: 5px">Skapare:</h5>
+                                <p>@item.Activity.CreatedBy @CalcAge(item.Activity.BirthDate) år</p>
                             </div>
-                        </div>
-                        <div class="d-flex">
-
-                            @if (User.Identity.IsAuthenticated)
+                            <div class="d-flex">
+                                <h5 style="margin-right: 5px">E-post:</h5>
+                                <p>@item.Activity.Email</p>
+                            </div>
+                            <div class="d-flex">
+                                <h5 style="margin-right: 5px">Stad/Ort:</h5>
+                                <p>@item.Activity.City</p>
+                            </div>
+                            <div class="d-flex">
+                                <h5 style="margin-right: 5px">Plats:</h5>
+                                <p>@item.Activity.Address</p>
+                            </div>
+                            <div class="d-flex">
+                                <h5 style="margin-right: 5px">Tid:</h5>
+                                <p>@item.Activity.Date.ToString()</p>
+                            </div>
+                            @if (item.Activity.ApplicationUserActivities != null)
                             {
-                                <form method="get" asp-controller="Activity" asp-action="Join">
-                                    <input type="hidden" name="id" value="@item.Id"/>
-                                    <button type="submit" class="btn btn-success" style="margin-right: 10px">Gå med</button>
-                                </form>
-                                if (User.IsInRole("Admin"))
-                                {
-                                <form method="post" asp-controller="Activity" asp-action="Delete" style="display:inline;">
-                                    <input type="hidden" name="id" value="@item.Id"/>
-                                    <button type="submit" class="btn btn-danger" style="margin-right: 10px">Ta bort</button>
-                                </form>
-                                }
-                                if (User.IsInRole("Admin") || (ViewData["UserEmail"] != null && ViewData["UserEmail"].ToString() == item.Email))
-                                {
-                                    <form method="get" asp-controller="Activity" asp-action="Edit">
-                                        <input type="hidden" name="id" value="@item.Id"/>
-                                        <button type="submit" class="btn btn-info" style="margin-right: 10px">Redigera</button>
-                                    </form>
-                                }
+                                var usersCount = item.Activity.ApplicationUserActivities.Count();
+                                var isCreatorUser = item.Activity.ApplicationUserActivities.Any(a => a.ApplicationUser.Email == item.Activity.Email);
+
+                            if (!isCreatorUser)
+                            {
+                            usersCount++;
+                            }
+
+                            <div class="d-flex">
+                                <h5 style="margin-right: 5px">Deltagare:</h5>
+                                <p>@usersCount</p>
+                            </div>
                             }
                             else
                             {
-                                <form method="get" asp-controller="Activity" asp-action="Join">
-                                    <input type="hidden" name="id" value="@item.Id"/>
-                                    <button type="submit" class="btn btn-success" style="margin-right: 10px" onclick="event.preventDefault(); alert('Du måste logga in')">Gå med</button>
-                                </form>
+                            <h5>Deltagare: 0</h5>
                             }
                         </div>
-                    </a>
-                </div>
+                    </div>
+                    <div class="d-flex">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                        var isCreator = ViewData["UserEmail"] != null && ViewData["UserEmail"].ToString() == item.Activity.Email;
+                        if (isCreator)
+                        {
+                        <form method="post" asp-controller="Activity" asp-action="LeaveEvent" style="display:inline;">
+                            <input type="hidden" name="id" value="@item.Activity.Id"/>
+                            <button type="submit" class="btn btn-warning" style="margin-right: 10px">Lämna</button>
+                        </form>
+                        <form method="get" asp-controller="Activity" asp-action="Edit">
+                            <input type="hidden" name="id" value="@item.Activity.Id"/>
+                            <button type="submit" class="btn btn-info" style="margin-right: 10px">Redigera</button>
+                        </form>
+                        }
+                        else
+                        {
+                        if (!item.isJoinedActivity)
+                        {
+                        <form method="get" asp-controller="Activity" asp-action="Join">
+                            <input type="hidden" name="id" value="@item.Activity.Id"/>
+                            <button type="submit" class="btn btn-success" style="margin-right: 10px">Gå med</button>
+                        </form>
+                        }
+                        if (item.isJoinedActivity)
+                        {
+                        <form method="post" asp-controller="Activity" asp-action="LeaveEvent" style="display:inline;">
+                            <input type="hidden" name="id" value="@item.Activity.Id"/>
+                            <button type="submit" class="btn btn-warning" style="margin-right: 10px">Lämna</button>
+                        </form>
+                        }
+                        }
+                        if (User.IsInRole("Admin"))
+                        {
+                        <form method="post" asp-controller="Activity" asp-action="Delete" style="display:inline;">
+                            <input type="hidden" name="id" value="@item.Activity.Id"/>
+                            <button type="submit" class="btn btn-danger" style="margin-right: 10px">Ta bort</button>
+                        </form>
+                        }
+                        }
+                        else
+                        {
+                        <form method="get" asp-controller="Activity" asp-action="Join">
+                            <input type="hidden" name="id" value="@item.Activity.Id"/>
+                            <button type="submit" class="btn btn-success" style="margin-right: 10px" onclick="event.preventDefault(); alert('Du måste logga in')">Gå med</button>
+                        </form>
+                        }
+                    </div>
+                </a>
             </div>
+        </div>
         }
     </div>
 </div>
+
+

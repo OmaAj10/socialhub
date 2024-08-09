@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Identity;
-
 namespace Social_Models;
 
 public class ApplicationUserActivity : BaseEntity
