@@ -52,7 +52,7 @@ namespace Social_DataAccess.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(21)", maxLength: 21, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -220,12 +220,12 @@ namespace Social_DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "Address", "BirthDate", "City", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PostalCode", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                columns: new[] { "Id", "AccessFailedCount", "Address", "BirthDate", "City", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PostalCode", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "13b07025-8be5-4f6f-bf30-5a08ee73a29b", 0, "Adress3", new DateTime(2022, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "City3", "a9398966-bc5d-4d71-aaaa-f46d9c0834a7", "ApplicationUser", "Fighter@example.com", false, false, null, "Fighter", null, null, null, null, false, "3", "ea6a8bb3-ff7a-4ed7-9514-4405d4f84799", false, null },
-                    { "6ca537b1-ed5f-47b5-9c71-b37f098789c7", 0, "Adress1", new DateTime(1991, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "City1", "3365fd84-f055-4e2b-903a-222d737c21b4", "ApplicationUser", "Omar@example.com", false, false, null, "Omar", null, null, null, null, false, "1", "765d7c97-b8b4-42fd-ac19-a33eb927009a", false, null },
-                    { "c863249f-301e-49cf-8b14-5eab8db21625", 0, "Adress2", new DateTime(2015, 7, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "City2", "9e9563db-1044-4d1c-ac4b-41e7e8ad7b95", "ApplicationUser", "Bob@example.com", false, false, null, "Bob", null, null, null, null, false, "2", "74f3842a-a95f-4fb2-97ab-5fd422e64bc3", false, null }
+                    { "82c7fa25-f041-410c-9140-a4fe2f73a3b0", 0, "Adress2", new DateTime(2015, 7, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "City2", "2aef25f6-17fe-456d-b1b0-489abdd9f492", "ApplicationUser", "Bob@example.com", false, "Bob", false, null, null, null, null, null, false, "2", "77e5c93a-8d90-4cce-84db-d1b8c55e1a70", false, null },
+                    { "a7209c0a-fa34-4188-b0ac-0437cb80a2f6", 0, "Adress1", new DateTime(1991, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "City1", "37320a39-6d4d-4602-8190-dfcf0f9e8487", "ApplicationUser", "Omar@example.com", false, "Omar", false, null, null, null, null, null, false, "1", "cb1d626d-e3ef-4f19-9fd4-972063898ccf", false, null },
+                    { "c46f0607-28f4-4980-ae8d-cff3a2708d74", 0, "Adress3", new DateTime(2022, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "City3", "e96030ac-f316-4db7-aa53-e818303525ef", "ApplicationUser", "Fighter@example.com", false, "Fighter", false, null, null, null, null, null, false, "3", "3dc7a48f-0bd2-4c79-bfc1-1b90342564bd", false, null }
                 });
 
             migrationBuilder.CreateIndex(

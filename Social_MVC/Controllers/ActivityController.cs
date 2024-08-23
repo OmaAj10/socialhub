@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol;
 using Social_DataAccess.Repository.IRepository;
 using Social_Models;
 using Social_Models.ViweModels;
@@ -47,7 +48,7 @@ public class ActivityController : Controller
 
             var applicationUser = new ApplicationUser()
             {
-                Name = activityModel.CreatedBy,
+                FullName = activityModel.CreatedBy,
                 BirthDate = activityModel.BirthDate,
                 Email = activityModel.Email,
             };
@@ -164,7 +165,7 @@ public class ActivityController : Controller
     
                 if (applicationUserFromDB != null)
                 {
-                    applicationUserFromDB.Name = activityFromDb.CreatedBy;
+                    applicationUserFromDB.FullName = activityFromDb.CreatedBy;
                 }
             }
     
@@ -191,7 +192,7 @@ public class ActivityController : Controller
         }
         
         ViewData["UserEmail"] = User.FindFirstValue(ClaimTypes.Email);
-
+        
         return View(activityFromDb);
     }
 
@@ -255,11 +256,6 @@ public class ActivityController : Controller
     [HttpPost, ActionName("LeaveEvent")]
     public async Task<IActionResult> LeaveEvent(int id)
     {
-        if (id == 0)
-        {
-            return NotFound();
-        }
-
         var userEmail = User.FindFirstValue(ClaimTypes.Email);
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var applicationUser = await _unitOfWork.ApplicationUser.Get(u => u.Email == userEmail && u.Id == userId);
@@ -274,7 +270,6 @@ public class ActivityController : Controller
         
         if (userActivity == null)
         {
-            Console.WriteLine($"No user activity found for ApplicationUserId: {applicationUser.Id} and ActivityId: {id}");
             return NotFound();
         }
 

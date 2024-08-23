@@ -114,21 +114,11 @@
                             @if (item.Activity.ApplicationUserActivities != null)
                             {
                                 var usersCount = item.Activity.ApplicationUserActivities.Count();
-                                var isCreatorUser = item.Activity.ApplicationUserActivities.Any(a => a.ApplicationUser.Email == item.Activity.Email);
-
-                            if (!isCreatorUser)
-                            {
-                            usersCount++;
-                            }
-
+                                
                             <div class="d-flex">
                                 <h5 style="margin-right: 5px">Deltagare:</h5>
                                 <p>@usersCount</p>
                             </div>
-                            }
-                            else
-                            {
-                            <h5>Deltagare: 0</h5>
                             }
                         </div>
                     </div>
@@ -138,38 +128,39 @@
                         var isCreator = ViewData["UserEmail"] != null && ViewData["UserEmail"].ToString() == item.Activity.Email;
                         if (isCreator)
                         {
-                        <form method="post" asp-controller="Activity" asp-action="LeaveEvent" style="display:inline;">
-                            <input type="hidden" name="id" value="@item.Activity.Id"/>
-                            <button type="submit" class="btn btn-warning" style="margin-right: 10px">Lämna</button>
-                        </form>
+                      
                         <form method="get" asp-controller="Activity" asp-action="Edit">
                             <input type="hidden" name="id" value="@item.Activity.Id"/>
                             <button type="submit" class="btn btn-info" style="margin-right: 10px">Redigera</button>
                         </form>
                         }
-                        else
+
+                        switch (item.isJoinedActivity)
                         {
-                        if (!item.isJoinedActivity)
-                        {
-                        <form method="get" asp-controller="Activity" asp-action="Join">
-                            <input type="hidden" name="id" value="@item.Activity.Id"/>
+                            case false:
+                                <form method="get" asp-controller="Activity" asp-action="Join">
+                                    <input type="hidden" name="id" value="@item.Activity.Id"/>
                             <button type="submit" class="btn btn-success" style="margin-right: 10px">Gå med</button>
-                        </form>
-                        }
-                        if (item.isJoinedActivity)
-                        {
-                        <form method="post" asp-controller="Activity" asp-action="LeaveEvent" style="display:inline;">
-                            <input type="hidden" name="id" value="@item.Activity.Id"/>
+                            </form>
+                                break;
+                            case true:
+                                <form method="post" asp-controller="Activity" asp-action="LeaveEvent" style="display:inline;">
+                                    <input type="hidden" name="id" value="@item.Activity.Id"/>
                             <button type="submit" class="btn btn-warning" style="margin-right: 10px">Lämna</button>
-                        </form>
+                            </form>
+                                break;
                         }
-                        }
+
                         if (User.IsInRole("Admin"))
-                        {
-                        <form method="post" asp-controller="Activity" asp-action="Delete" style="display:inline;">
+                        { 
+                            <form method="get" asp-controller="Activity" asp-action="Edit">
+                                <input type="hidden" name="id" value="@item.Activity.Id"/>
+                                <button type="submit" class="btn btn-info" style="margin-right: 10px">Redigera</button>
+                            </form>
+                            <form method="post" asp-controller="Activity" asp-action="Delete" style="display:inline;">
                             <input type="hidden" name="id" value="@item.Activity.Id"/>
                             <button type="submit" class="btn btn-danger" style="margin-right: 10px">Ta bort</button>
-                        </form>
+                            </form>
                         }
                         }
                         else

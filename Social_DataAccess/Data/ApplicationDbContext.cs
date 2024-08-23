@@ -65,7 +65,7 @@ public class ApplicationDbContext : IdentityDbContext
     modelBuilder.Entity<ApplicationUser>().HasData(
         new ApplicationUser()
         {
-            Name = "Omar",
+            FullName = "Omar",
             BirthDate = DateTime.Parse("1991-10-09"),
             Email = "Omar@example.com",
             Address = "Adress1",
@@ -74,7 +74,7 @@ public class ApplicationDbContext : IdentityDbContext
         },
         new ApplicationUser()
         {
-            Name = "Bob",
+            FullName = "Bob",
             BirthDate = DateTime.Parse("2015-07-14"),
             Email = "Bob@example.com",
             Address = "Adress2",
@@ -83,7 +83,7 @@ public class ApplicationDbContext : IdentityDbContext
         },
         new ApplicationUser()
         {
-            Name = "Fighter",
+            FullName = "Fighter",
             BirthDate = DateTime.Parse("2022-04-28"),
             Email = "Fighter@example.com",
             Address = "Adress3",

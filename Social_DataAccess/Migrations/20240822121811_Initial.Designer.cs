@@ -12,7 +12,7 @@ using Social_DataAccess;
 namespace Social_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240807122428_Initial")]
+    [Migration("20240822121811_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -337,7 +337,7 @@ namespace Social_DataAccess.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
@@ -348,53 +348,53 @@ namespace Social_DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6ca537b1-ed5f-47b5-9c71-b37f098789c7",
+                            Id = "a7209c0a-fa34-4188-b0ac-0437cb80a2f6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3365fd84-f055-4e2b-903a-222d737c21b4",
+                            ConcurrencyStamp = "37320a39-6d4d-4602-8190-dfcf0f9e8487",
                             Email = "Omar@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "765d7c97-b8b4-42fd-ac19-a33eb927009a",
+                            SecurityStamp = "cb1d626d-e3ef-4f19-9fd4-972063898ccf",
                             TwoFactorEnabled = false,
                             Address = "Adress1",
                             BirthDate = new DateTime(1991, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             City = "City1",
-                            Name = "Omar",
+                            FullName = "Omar",
                             PostalCode = "1"
                         },
                         new
                         {
-                            Id = "c863249f-301e-49cf-8b14-5eab8db21625",
+                            Id = "82c7fa25-f041-410c-9140-a4fe2f73a3b0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9e9563db-1044-4d1c-ac4b-41e7e8ad7b95",
+                            ConcurrencyStamp = "2aef25f6-17fe-456d-b1b0-489abdd9f492",
                             Email = "Bob@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "74f3842a-a95f-4fb2-97ab-5fd422e64bc3",
+                            SecurityStamp = "77e5c93a-8d90-4cce-84db-d1b8c55e1a70",
                             TwoFactorEnabled = false,
                             Address = "Adress2",
                             BirthDate = new DateTime(2015, 7, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             City = "City2",
-                            Name = "Bob",
+                            FullName = "Bob",
                             PostalCode = "2"
                         },
                         new
                         {
-                            Id = "13b07025-8be5-4f6f-bf30-5a08ee73a29b",
+                            Id = "c46f0607-28f4-4980-ae8d-cff3a2708d74",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a9398966-bc5d-4d71-aaaa-f46d9c0834a7",
+                            ConcurrencyStamp = "e96030ac-f316-4db7-aa53-e818303525ef",
                             Email = "Fighter@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ea6a8bb3-ff7a-4ed7-9514-4405d4f84799",
+                            SecurityStamp = "3dc7a48f-0bd2-4c79-bfc1-1b90342564bd",
                             TwoFactorEnabled = false,
                             Address = "Adress3",
                             BirthDate = new DateTime(2022, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             City = "City3",
-                            Name = "Fighter",
+                            FullName = "Fighter",
                             PostalCode = "3"
                         });
                 });
