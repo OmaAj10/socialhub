@@ -1,0 +1,50 @@
+@model IEnumerable<Social_Models.Dto.ApplicationUserDto>
+
+@functions
+{
+    public int CalcAge(DateTime birthDate)
+    {
+        var today = DateTime.Today;
+        var age = today.Year - birthDate.Year;
+
+        if (birthDate > today.AddYears(-age))
+        {
+            age--;
+        }
+
+        return age;
+    }
+}
+
+<div class="container py-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2 style="text-align: center">Deltagare</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Namn</th>
+                            <th>Ålder</th>
+                            <th>E-post</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var participant in Model)
+                        {
+                            <tr>
+                                <td>@participant.FullName</td>
+                                <td>@CalcAge(participant.BirthDate)</td>
+                                <td>@participant.Email</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

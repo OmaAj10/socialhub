@@ -1,7 +1,6 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol;
 using Social_DataAccess.Repository.IRepository;
 using Social_Models;
 using Social_Models.ViweModels;

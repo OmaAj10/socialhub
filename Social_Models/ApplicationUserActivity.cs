@@ -7,4 +7,4 @@ public class ApplicationUserActivity : BaseEntity
 
     public int ActivityId { get; set; }
     public Activity Activity { get; set; }
-}
+} 
