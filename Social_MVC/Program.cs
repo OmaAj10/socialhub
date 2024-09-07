@@ -5,8 +5,18 @@ using Social_DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Social_Utility;
+using Microsoft.SemanticKernel;
 
 var builder = WebApplication.CreateBuilder(args);
+
+IKernelBuilder kernelBuilder = Kernel.CreateBuilder();
+kernelBuilder.AddOpenAIChatCompletion(
+    modelId: "gpt-3.5-turbo",
+    apiKey:  "Api-Key");
+
+Kernel kernel = kernelBuilder.Build();
+
+builder.Services.AddSingleton(kernel);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -24,6 +34,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -45,3 +56,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
