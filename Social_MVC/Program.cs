@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 IKernelBuilder kernelBuilder = Kernel.CreateBuilder();
 kernelBuilder.AddOpenAIChatCompletion(
     modelId: "gpt-3.5-turbo",
-    apiKey:  "Api-Key");
+    apiKey:  "Api-key");
 
 Kernel kernel = kernelBuilder.Build();
 

@@ -483,3 +483,4 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 Social_MVC/appsettings.json
+Social_MVC/appsettings.Development.json
