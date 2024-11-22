@@ -1,16 +1,23 @@
 # socialhub
 
-För att starta projektet
+## För att starta projektet
 
-1- Öppna docker 
-2- Lägg till Open Ai Api-Key i program.cs, om man vill kontakta AI. 
-3- Kör docker compose up i terminalen
-4- Öppna webbläsare och skriv http://localhost:8080
+- Öppna docker 
 
+- Lägg till Open Ai Api-Key i program.cs, om man vill kontakta AI.
 
-To start the project
+- Kör docker compose up i terminalen
 
-1- Open docker
-2- To connect with AI, add your Open Ai Api-Key in program.cs.  
-3- Run docker compose up in terminal
-4- Open your web browser and type http://localhost:8080
+- Öppna webbläsare och skriv http://localhost:8080
+
+_________________________________________________________________________
+
+## To start the project
+
+- Open docker
+
+- To connect with AI, add your Open Ai Api-Key in program.cs.  
+
+- Run docker compose up in terminal
+
+- Open your web browser and type http://localhost:8080
