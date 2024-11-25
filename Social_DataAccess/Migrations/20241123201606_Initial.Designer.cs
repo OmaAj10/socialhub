@@ -12,7 +12,7 @@ using Social_DataAccess;
 namespace Social_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240822121811_Initial")]
+    [Migration("20241123201606_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -331,7 +331,7 @@ namespace Social_DataAccess.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("BirthDate")
+                    b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("City")
@@ -348,14 +348,14 @@ namespace Social_DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a7209c0a-fa34-4188-b0ac-0437cb80a2f6",
+                            Id = "7147d925-eae0-40e9-9c82-2b95d73e366c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "37320a39-6d4d-4602-8190-dfcf0f9e8487",
+                            ConcurrencyStamp = "5f829ed4-d1eb-4fb5-b39e-45a33fdd20d6",
                             Email = "Omar@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cb1d626d-e3ef-4f19-9fd4-972063898ccf",
+                            SecurityStamp = "310e2e57-e033-4ef1-87f6-a28cdf15e76c",
                             TwoFactorEnabled = false,
                             Address = "Adress1",
                             BirthDate = new DateTime(1991, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -365,14 +365,14 @@ namespace Social_DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "82c7fa25-f041-410c-9140-a4fe2f73a3b0",
+                            Id = "d92afc62-9db7-445a-9467-998a680f1cc3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2aef25f6-17fe-456d-b1b0-489abdd9f492",
+                            ConcurrencyStamp = "b90bf89b-4142-4233-8fa8-b6e5c5240493",
                             Email = "Bob@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "77e5c93a-8d90-4cce-84db-d1b8c55e1a70",
+                            SecurityStamp = "518590b0-b860-469f-b4a1-2804dafabd2b",
                             TwoFactorEnabled = false,
                             Address = "Adress2",
                             BirthDate = new DateTime(2015, 7, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -382,14 +382,14 @@ namespace Social_DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "c46f0607-28f4-4980-ae8d-cff3a2708d74",
+                            Id = "497be24f-bb72-41bc-a44d-18a984ad7019",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e96030ac-f316-4db7-aa53-e818303525ef",
+                            ConcurrencyStamp = "f8341d50-c498-4d75-8523-fe66fcfd738f",
                             Email = "Fighter@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3dc7a48f-0bd2-4c79-bfc1-1b90342564bd",
+                            SecurityStamp = "c9b0547b-1fcf-4e14-ad7b-3231211981bb",
                             TwoFactorEnabled = false,
                             Address = "Adress3",
                             BirthDate = new DateTime(2022, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
