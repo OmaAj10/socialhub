@@ -147,6 +147,13 @@ namespace Social_MVC.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                int age = CalculateAge(Input.BirthDate);
+                if (age < 18)
+                {
+                    ModelState.AddModelError("", "Du måste vara 18 år för att kunna registrera ett konto.");
+                    return Page();
+                }
+                
                 var user = CreateUser();
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
@@ -155,6 +162,7 @@ namespace Social_MVC.Areas.Identity.Pages.Account
                 user.Address = Input.Address;
                 user.City = Input.City;
                 user.PostalCode = Input.PostalCode;
+                user.BirthDate = Input.BirthDate;
                     
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
@@ -201,6 +209,14 @@ namespace Social_MVC.Areas.Identity.Pages.Account
 
             // If we got this far, something failed, redisplay form
             return Page();
+        }
+        
+        private int CalculateAge(DateTime birthDate)
+        {
+            var today = DateTime.Today;
+            var age = today.Year - birthDate.Year;
+            if (birthDate > today.AddYears(-age)) age--;
+            return age;
         }
 
         private ApplicationUser CreateUser()

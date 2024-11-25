@@ -42,24 +42,31 @@ public class ActivityController : Controller
 
         if (ModelState.IsValid)
         {
-            activityModel = await _unitOfWork.Activity.Create(activityModel);
+            await _unitOfWork.Activity.Create(activityModel);
             await _unitOfWork.Save();
+            
+            var userEmail = User.FindFirstValue(ClaimTypes.Email);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                
+            var applicationUser = await _unitOfWork.ApplicationUser.Get(u => u.Email == userEmail && u.Id == userId);
 
-            var applicationUser = new ApplicationUser()
+            if (applicationUser != null)
             {
-                FullName = activityModel.CreatedBy,
-                BirthDate = activityModel.BirthDate,
-                Email = activityModel.Email,
-            };
-
-            await _unitOfWork.ApplicationUser.Create(applicationUser);
-            await _unitOfWork.Save();
+                var applicationUserActivity = new ApplicationUserActivity
+                {
+                    ApplicationUserId = applicationUser.Id,
+                    ActivityId = activityModel.Id
+                };
+                await _unitOfWork.ApplicationUserActivity.Create(applicationUserActivity);
+                await _unitOfWork.Save();
+            }
 
             TempData["success"] = "Ditt event har skapats";
             return RedirectToAction(nameof(Index));
         }
 
-        return View();
+        ViewData["BirthDate"] = activityModel.BirthDate;
+        return View(activityModel);
     }
     
     [HttpPost, ActionName("Delete")]
