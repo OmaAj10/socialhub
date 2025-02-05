@@ -69,7 +69,7 @@ public class ActivityController : Controller
         return View(activityModel);
     }
     
-    [HttpPost, ActionName("Delete")]
+    [HttpDelete, ActionName("Delete")]
     public async Task<IActionResult> DeleteEvent(int id)
     {
         if (id == 0)
@@ -97,8 +97,9 @@ public class ActivityController : Controller
         await _unitOfWork.Activity.Delete(activityFromDb);
         await _unitOfWork.Save();
         TempData["success"] = "Eventet har tagits bort!";
-        return RedirectToAction(nameof(Index));
+        return Json(new { success = true, message = "Eventet har tagits bort!" });
     }
+    
     public async Task<IActionResult> Edit(int id)
     {
         if (id == 0)

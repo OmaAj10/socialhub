@@ -26,5 +26,4 @@
       <PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.18.2" />
       <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.3" />
     </ItemGroup>
-
 </Project>

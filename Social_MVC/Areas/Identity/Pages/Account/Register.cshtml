@@ -22,11 +22,6 @@
                 <span asp-validation-for="Input.FullName" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3 col-md-6">
-                <input asp-for="Input.BirthDate" class="form-control" aria-required="true" placeholder="" type="date"/>
-                <label asp-for="Input.BirthDate">Födelsedatum</label>
-                <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3 col-md-6">
                 <input asp-for="Input.Password" class="form-control" aria-required="true" placeholder="" />
                 <label asp-for="Input.Password">Lösenord</label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
@@ -35,7 +30,12 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" aria-required="true" placeholder="" />
                 <label asp-for="Input.ConfirmPassword">Bekräfta Lösenordet</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div> 
+            </div>
+            <div class="form-floating mb-3 col-md-6">
+                <input asp-for="Input.BirthDate" class="form-control" aria-required="true" placeholder="" type="date"/>
+                <label asp-for="Input.BirthDate">Födelsedatum</label>
+                <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
+            </div>
             <div class="form-floating mb-3 col-md-6">
                 <input asp-for="Input.Address" class="form-control" aria-required="true" placeholder="" />
                 <label asp-for="Input.Address">Adress</label>
@@ -51,11 +51,18 @@
                 <label asp-for="Input.PostalCode">Postnummer</label>
                 <span asp-validation-for="Input.PostalCode" class="text-danger"></span>
             </div>
-            <div class="form-floating mb-3 col-md-6">
-                <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">
-                    <option disabled selected>Välj typ</option> 
-                </select>
-            </div>
+            
+            
+            @* Fix later *@
+            @* ====***********==== *@
+            @* <div class="form-floating mb-3 col-md-6"> *@
+            @*     <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select"> *@
+            @*         <option disabled selected>Välj typ</option> *@
+            @*     </select> *@
+            @* </div> *@
+            @* ====***********==== *@
+            
+            
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Registrera</button>
         </form>
     </div>
